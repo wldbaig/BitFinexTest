@@ -1,0 +1,39 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+option csharp_namespace = "BitFinexP2P.Proto";
+
+package proto.package;
+message AuctionRequest {
+  string auction_id = 1;
+  string item_name = 2;
+  double starting_price = 3;
+}
+
+message BidRequest {
+  string auction_id = 1;
+  string bidder_id = 2;
+  double bid_amount = 3;
+}
+
+message AuctionResult {
+  string auction_id = 1;
+  string winner_id = 2;
+  double winning_bid = 3;
+}
+
+service AuctionService {
+  rpc InitiateAuction(AuctionRequest) returns (BoolResponse);
+  rpc PlaceBid(BidRequest) returns (BoolResponse);
+  rpc ConcludeAuction(StringValue) returns (AuctionResult);
+}
+
+message BoolResponse {
+  bool success = 1;
+}
+message BroadcastMessage {
+	string message = 1;
+}
+message StringValue {
+  string value = 1;
+}
